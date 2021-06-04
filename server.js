@@ -18,4 +18,4 @@ app.get("/",function(req,res){
     res.send("WELCOME TO MY DIARY")
 })
 const Port =process.env.PORT || 3000;
-module.exports=app.listen(Port,()=>console.log("Server stated"));
+module.exports=app.listen(Port,()=>console.log("Server stated",Port));
