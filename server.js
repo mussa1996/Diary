@@ -5,9 +5,9 @@ const bodyParser=require('body-parser');
 const app=express();
 connectDb();
 const cors = require('cors');
-const corsOptions ={
+let corsOptions ={
     origin:'http://localhost:3001', 
-    credentials:true,            //access-control-allow-credentials:true
+    credentials:true,     
     optionSuccessStatus:200
 }
 app.use(cors(corsOptions));
@@ -17,5 +17,5 @@ app.use(bodyParser.json());
 app.get("/",function(req,res){
     res.send("WELCOME TO MY DIARY")
 })
-const Port =process.env.port || 3000;
-app.listen(Port,()=>console.log("Server stated"));
+const Port =process.env.PORT || 3000;
+module.exports=app.listen(Port,()=>console.log("Server stated"));

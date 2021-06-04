@@ -23,23 +23,20 @@ exports.postDiary = async (req, res, next) => {
 }
 
 exports.getDiary = async (req, res, next) => {
-    const diary = await Diary.find({}).then((diary) => {
-        res.send(diary)
+    const diary = await Diary.find({owner:req.user._id}).then((diary) => {
+        res.send({diary})
     })
 }
 exports.getOneDiary = async (req, res, next) => {
-    const _id = req.params.id
+    const title = req.params.id
     try {
-        const diary = await Diary.findOne({ _id, owner: req.user._id })
+        const diary = await Diary.findOne({ title, owner: req.user._id })
 
         if (!diary) {
             res.status(404).send('no diary found')
         }
         res.send({
-            message: 'operation successful',
-            diary: {
-                diary
-            }
+            diary
         })
     } catch (error) {
         res.status(500).send(error.message);
@@ -51,6 +48,7 @@ exports.deleteDiary = async (req, res) => {
         if (!diary) {
             res.send('diary not found')
         }
+        await Diary.deleteOne({ _id: req.params.id, owner: req.user._id })
         res.send({
             message: "deleted successful",
             diary: diary
