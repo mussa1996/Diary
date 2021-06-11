@@ -25,7 +25,11 @@ const userSchema=new mongoose.Schema({
             type:String,
             required:true
         }
-    }]
+    }],
+    resentLink:{
+        data:String,
+        default:''
+    }
 })
 //generating auth token
 userSchema.methods.generateAuthToken = async function(){
