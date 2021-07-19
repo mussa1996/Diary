@@ -8,14 +8,14 @@ exports.createUser = async(req,res)=>{
     let transport=nodemailer.createTransport({
         service:'gmail',
         auth:{
-            user:'niyodusengamussa@gmail.com',
-            pass:'ruyenzi97'
+            user:process.env.EMAIL,
+            pass:process.env.PASSWORD
         }
     })
     const {email,password}=req.body;
     const token=jwt.sign({email,password},process.env.JWT_ACC_ACTIVATE,{expiresIn:'20m'});
     const mailOption = {
-        from: 'niyodusengamussa@gmail.com',
+        from: process.env.EMAIL,
         to: email,
         subject: 'Account Activation Link',
         html:`
@@ -89,12 +89,12 @@ return res.status(400).json({error:"user of this email does not exists"})
             let transport=nodemailer.createTransport({
                 service:'gmail',
                 auth:{
-                    user:'niyodusengamussa@gmail.com',
-                    pass:'ruyenzi97'
+                    user:process.env.EMAIL,
+                    pass:process.env.PASSWORD
                 }
             })
     const mailOption= {
-        from: 'niyodusengamussa@gmail.com',
+        from: process.env.EMAIL,
         to: email,
         subject: 'Account Activation Link',
         html:`
